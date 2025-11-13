@@ -6,9 +6,7 @@
     <title>Henrique Carvalho Teixeira • Data & Operations Analyst</title>
 
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -21,23 +19,44 @@
         /* ======= HEADER ======= */
         header {
             background: #4A4AE5;
-            padding: 30px 15px 20px;
+            padding: 40px 15px 30px;
             color: white;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         header h1 {
             margin: 0;
-            font-size: 26px;
+            font-size: 28px;
         }
 
         header p {
             font-size: 14px;
             margin-top: 8px;
+            opacity: .85;
         }
 
-        /* ======= BOTÃO DO MENU (☰) ======= */
+        /* efeito typing */
+        .typing {
+            width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid white;
+            animation: typing 3s steps(40), blink .5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* ======= BOTÃO DO MENU ======= */
         #menuBtn {
             position: absolute;
             top: 15px;
@@ -50,10 +69,15 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 5px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: .3s;
         }
 
-        /* ======= MENU SUSPENSO ======= */
+        #menuBtn:hover {
+            transform: scale(1.1);
+        }
+
+        /* ======= MENU SUSPENSO ANIMADO ======= */
         nav {
             display: none;
             flex-direction: column;
@@ -62,6 +86,12 @@
             border-radius: 10px;
             padding: 10px 15px;
             text-align: left;
+            animation: fadeSlide .4s ease;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         nav a {
@@ -71,15 +101,19 @@
             font-weight: bold;
             padding: 8px 0;
             border-bottom: 1px solid #ddd;
+            transition: .3s;
         }
 
-        nav a:last-child {
-            border-bottom: none;
+        nav a:hover {
+            padding-left: 6px;
+            color: #2a2ac7;
         }
+
+        nav a:last-child { border-bottom: none; }
 
         /* ======= SEÇÕES ======= */
         section {
-            padding: 30px 15px;
+            padding: 28px 15px;
             max-width: 1000px;
             margin: auto;
         }
@@ -90,10 +124,7 @@
             font-size: 22px;
         }
 
-        h3 {
-            margin-top: 0;
-            color: #333;
-        }
+        h3 { margin: 0; }
 
         .subtitulo {
             font-size: 13px;
@@ -103,12 +134,22 @@
 
         .card {
             background: white;
-            padding: 20px;
+            padding: 18px;
             border-radius: 12px;
             box-shadow: 0 0 12px rgba(0,0,0,0.08);
-            margin-bottom: 22px;
+            margin-bottom: 18px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: .6s;
         }
 
+        /* CARD VISÍVEL */
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* TAGS ANIMADAS */
         .tag {
             display: inline-block;
             background: #e7e9ff;
@@ -117,58 +158,49 @@
             border-radius: 999px;
             font-size: 11px;
             margin: 2px 4px 2px 0;
+            transition: .3s;
         }
 
-        ul {
-            padding-left: 18px;
+        .tag:hover {
+            transform: scale(1.15);
+            background: #4A4AE5;
+            color: white;
         }
 
-        ul li {
-            margin-bottom: 6px;
+        /* ACCORDION */
+        .accordion {
+            cursor: pointer;
+            padding: 12px 0;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: .3s;
         }
 
-        .linha {
-            height: 1px;
-            background: #ddd;
-            margin: 15px 0;
+        .accordion:hover {
+            color: #4A4AE5;
         }
 
-        /* ======= GRID SIMPLES ======= */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease;
+        }
+
+        .accordion.open + .accordion-content {
+            max-height: 600px;
+        }
+
+        /* GRID */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
+            gap: 15px;
         }
 
-        /* ======= DARK MODE ======= */
-        .dark {
-            background: #141414;
-            color: #f1f1f1;
-        }
-
-        .dark header {
-            background: #2f35c7;
-        }
-
-        .dark nav {
-            background: #222;
-        }
-
-        .dark nav a {
-            color: #f1f1f1;
-            border-bottom: 1px solid #444;
-        }
-
-        .dark .card {
-            background: #222;
-            box-shadow: 0 0 12px rgba(0,0,0,0.6);
-        }
-
-        .dark h3 {
-            color: #fff;
-        }
-
-        /* botão dark */
+        /* BOTÃO DARK → mantido simples */
         #darkBtn {
             position: fixed;
             bottom: 20px;
@@ -182,209 +214,181 @@
             cursor: pointer;
             box-shadow: 0 0 12px rgba(0,0,0,0.3);
         }
-
-        /* ======= RESPONSIVO ======= */
-        @media (min-width: 768px) {
-            header h1 {
-                font-size: 30px;
-            }
-
-            header p {
-                font-size: 15px;
-            }
-        }
     </style>
 </head>
+
 <body>
 
     <header>
         <h1>Henrique Carvalho Teixeira</h1>
-        <p>Data &amp; Operations Analyst | Power BI | KPI Design | Process Optimization | Last Mile Logistics</p>
+        <p class="typing">Data & Operations Analyst | Power BI | KPI Design | Process Optimization | Last Mile Logistics</p>
 
         <!-- botão que abre o menu -->
         <button id="menuBtn" onclick="toggleMenu()">☰</button>
 
-        <!-- MENU SUSPENSO -->
+        <!-- MENU -->
         <nav id="menuNav">
             <a href="#sobre" onclick="toggleMenu()">Sobre</a>
             <a href="#experiencia" onclick="toggleMenu()">Experiência</a>
-            <a href="#formacao" onclick="toggleMenu()">Formação &amp; Certificações</a>
+            <a href="#formacao" onclick="toggleMenu()">Formação & Certificações</a>
             <a href="#habilidades" onclick="toggleMenu()">Habilidades</a>
             <a href="#contato" onclick="toggleMenu()">Contato</a>
         </nav>
     </header>
 
-    <!-- ======= SOBRE ======= -->
+    <!-- SOBRE -->
     <section id="sobre">
         <h2>Sobre</h2>
         <div class="card">
-            <p>
-                Profissional de Logística e Análise de Dados com sólida experiência em operações de Last Mile,
-                controle de performance e melhoria contínua. Atuo como referência técnica em dados dentro da regional,
-                unindo visão operacional e analítica para apoiar decisões estratégicas e elevar a eficiência dos processos.
-            </p>
-            <p>
-                Desenvolvo e gerencio dashboards em Power BI, Looker e Excel Avançado, transformando grandes volumes de
-                dados em informações claras e acionáveis para liderança e times operacionais. Entre os resultados,
-                destaco a redução de gargalos em hubs, otimização de rotas e cargas e criação de ferramentas que
-                aumentaram a agilidade na análise de indicadores como DS e SPR.
-            </p>
-            <p>
-                Atuo com forte integração entre Fleet, OwnFleet e Hubs, conduzindo alinhamentos estratégicos, mapeando
-                ofensores e promovendo planos de ação para melhoria de performance. Tenho certificações e participação
-                ativa em programas de Excelência Operacional (CCQ e UBQ), reforçando meu compromisso com qualidade,
-                inovação e resultados sustentáveis.
-            </p>
-            <p>
-                Atualmente, busco ampliar minha atuação para desafios que envolvam liderança técnica, automação de
-                análises e projetos de inteligência de dados em larga escala.
-            </p>
+            <p>Profissional de Logística e Análise de Dados com sólida experiência em operações de Last Mile, controle de performance e melhoria contínua.</p>
+            <p>Desenvolvo dashboards em Power BI, Looker e Excel Avançado, transformando grandes volumes de dados em insights.</p>
+            <p>Atuo com forte integração entre Fleet, OwnFleet e Hubs, conduzindo reuniões, mapeando ofensores e criando processos mais eficientes.</p>
+            <p>Busco desafios envolvendo liderança técnica, automação e inteligência de dados.</p>
         </div>
     </section>
 
-    <!-- ======= EXPERIÊNCIA ======= -->
+    <!-- EXPERIÊNCIA -->
     <section id="experiencia">
         <h2>Experiência</h2>
 
+        <!-- Shopee -->
         <div class="card">
-            <h3>Junior Monitoring Associate · Shopee</h3>
+            <div class="accordion">Junior Monitoring Associate · Shopee <span>▼</span></div>
             <div class="subtitulo">jun de 2024 – o momento · Minas Gerais, Brasil · Híbrida</div>
-            <ul>
-                <li>Análise de performance das operações de Last Mile, garantindo alinhamento ao planejamento estratégico por meio de indicadores de eficiência e qualidade.</li>
-                <li>Desenvolvimento de relatórios e dashboards analíticos em Power BI e Excel para apoio à tomada de decisão e acompanhamento de metas pelas lideranças regionais.</li>
-                <li>Condução de reuniões com Hubs e Fleet para apresentação de resultados, identificação de ofensores e definição de planos de ação corretivos.</li>
-                <li>Atuação como segundo nível técnico de monitoramento, solucionando ocorrências complexas relacionadas a H/H Fleet e Drivers.</li>
-                <li>Mapeamento de processos e implementação de melhorias operacionais, reduzindo retrabalhos e otimizando fluxos de comunicação.</li>
-                <li>Padronização de análises regionais e criação de modelos de visibilidade que aumentaram agilidade e precisão nas decisões.</li>
-            </ul>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Análise de performance de Last Mile.</li>
+                    <li>Criação de dashboards Power BI e Excel.</li>
+                    <li>Reuniões com Hubs e Fleet.</li>
+                    <li>Monitoramento nível 2 (Fleet / Drivers).</li>
+                    <li>Modelos de visibilidade e padronização analítica.</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Tablo -->
         <div class="card">
-            <h3>Analista de Logística · Tablo Ambientes Corporativos</h3>
-            <div class="subtitulo">jun de 2023 – ago de 2024 · Minas Gerais, Brasil · Híbrida</div>
-            <ul>
-                <li>Planejamento e coordenação do transporte de cargas B2B, com foco em prazos, custos e qualidade no atendimento.</li>
-                <li>Realização de cotações, negociações e acompanhamento logístico completo das rotas, monitorando transportadoras e SLAs.</li>
-                <li>Desenvolvimento de controles internos em Excel e relatórios de fretes, ampliando visibilidade de custos e otimizando itinerários.</li>
-                <li>Atuação integrada com times comercial e de operações, contribuindo para padronização de processos de expedição e distribuição.</li>
-                <li>Base sólida em transporte e operações que impulsionou a migração para um papel mais analítico e estratégico de performance.</li>
-            </ul>
+            <div class="accordion">Analista de Logística · Tablo Ambientes Corporativos <span>▼</span></div>
+            <div class="subtitulo">jun de 2023 – ago de 2024 · MG · Híbrida</div>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Planejamento e coordenação de cargas B2B.</li>
+                    <li>Negociações, SLAs e itinerários.</li>
+                    <li>Relatórios de custos e otimização de rotas.</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Sequoia -->
         <div class="card">
-            <h3>Líder de Operações · Sequoia Soluções Logísticas</h3>
-            <div class="subtitulo">fev de 2022 – fev de 2023 · Contagem, MG, Brasil</div>
-            <ul>
-                <li>Liderança de equipe operacional nas rotinas de recebimento, armazenagem, expedição e distribuição.</li>
-                <li>Acompanhamento e análise de KPIs para garantir cumprimento de SLAs e identificação de melhorias em tempo real.</li>
-                <li>Gestão de pessoas: treinamentos, distribuição de atividades e feedbacks para desenvolvimento da equipe e redução de erros.</li>
-                <li>Implementação de controles e rotinas de monitoramento diário, aumentando visibilidade de volumes, prazos e produtividade.</li>
-                <li>Consolidação de base em gestão de operações logísticas e liderança de times.</li>
-            </ul>
+            <div class="accordion">Líder de Operações · Sequoia <span>▼</span></div>
+            <div class="subtitulo">fev de 2022 – fev de 2023 · Contagem</div>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Liderança operacional.</li>
+                    <li>Gestão de KPIs e produtividade.</li>
+                    <li>Implementação de rotinas de monitoramento.</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Ambev -->
         <div class="card">
-            <h3>Analista de Rota · Brasnorte Bebidas (Cervejaria Ambev)</h3>
-            <div class="subtitulo">ago de 2021 – fev de 2022 · Betim, MG, Brasil</div>
-            <ul>
-                <li>Análise e otimização de rotas de distribuição, garantindo eficiência, cumprimento de prazos e redução de custos.</li>
-                <li>Acompanhamento de indicadores de transporte e produtividade, propondo ações corretivas.</li>
-                <li>Planejamento tático de transporte e movimentação de cargas, apoiando decisões sobre frota, itinerários e desempenho.</li>
-                <li>Experiência essencial para consolidar a visão analítica de performance logística.</li>
-            </ul>
+            <div class="accordion">Analista de Rota · Brasnorte Bebidas (Ambev) <span>▼</span></div>
+            <div class="subtitulo">ago de 2021 – fev de 2022 · Betim</div>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Otimização de rotas e custos.</li>
+                    <li>Análise de indicadores de transporte.</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- ADM -->
         <div class="card">
-            <h3>Expedidor · Archer Daniels Midland Company (ADM)</h3>
-            <div class="subtitulo">ago de 2020 – ago de 2021 · Contagem, MG, Brasil</div>
-            <ul>
-                <li>Gestão do fluxo logístico de expedição e estoque de matérias-primas e produtos acabados.</li>
-                <li>Liderança e desenvolvimento de equipes operacionais, promovendo padronização e segurança.</li>
-                <li>Implementação de controles de estoque e KPIs, apoiando diretoria industrial e PCP na tomada de decisão.</li>
-                <li>Atuação em análise de fluxos e planejamento de melhorias logísticas.</li>
-            </ul>
+            <div class="accordion">Expedidor · ADM <span>▼</span></div>
+            <div class="subtitulo">ago de 2020 – ago de 2021 · Contagem</div>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Gestão de expedição e estoque.</li>
+                    <li>Implementação de controles e KPIs.</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- CEVA -->
         <div class="card">
-            <h3>Conferente Logístico · CEVA Logistics</h3>
-            <div class="subtitulo">nov de 2019 – fev de 2020 · Betim e região, Brasil</div>
-            <ul>
-                <li>Organização de estoque, recebimento, separação, conferência e movimentação de mercadorias.</li>
-                <li>Participação em inventários para garantir balanço real x previsto.</li>
-                <li>Reconhecimento por excelência operacional e boas práticas de qualidade (Inventário FCA 2020).</li>
-            </ul>
+            <div class="accordion">Conferente Logístico · CEVA Logistics <span>▼</span></div>
+            <div class="subtitulo">nov de 2019 – fev de 2020 · Betim</div>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Organização de estoque e inventário.</li>
+                    <li>Reconhecimento por excelência operacional.</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Pif Paf -->
         <div class="card">
-            <h3>Separador Logístico · Pif Paf Alimentos</h3>
-            <div class="subtitulo">abr de 2017 – jan de 2019 · Contagem e região, Brasil</div>
-            <ul>
-                <li>Atividades de estoque, reposição, emissão de notas fiscais, inventário e conferência via WMS.</li>
-                <li>Responsável pelo comando de perdas potenciais e reais.</li>
-                <li>Participação em projetos CCQ e encontro UBQ, com reconhecimento por excelência operacional.</li>
-            </ul>
+            <div class="accordion">Separador Logístico · Pif Paf <span>▼</span></div>
+            <div class="subtitulo">abr de 2017 – jan de 2019 · Contagem</div>
+
+            <div class="accordion-content">
+                <ul>
+                    <li>Processos WMS, inventário e perdas.</li>
+                    <li>Participação UBQ e CCQ.</li>
+                </ul>
+            </div>
         </div>
+
     </section>
 
-    <!-- ======= FORMAÇÃO & CERTIFICAÇÕES ======= -->
+    <!-- FORMAÇÃO -->
     <section id="formacao">
-        <h2>Formação &amp; Certificações</h2>
+        <h2>Formação & Certificações</h2>
 
         <div class="grid-2">
-
             <div class="card">
-                <h3>Curso Profissionalizante em Dados · IFRS</h3>
-                <div class="subtitulo">set de 2025 – nov de 2025 · Nota: 85,13%</div>
-                <ul>
-                    <li>Banco de Dados SQL, PostgreSQL, MySQL e Administração de Bancos de Dados.</li>
-                    <li>Foco em estruturação e gerenciamento de bases para análises operacionais e estratégicas.</li>
-                </ul>
+                <h3>Dados · IFRS</h3>
+                <div class="subtitulo">2025 · Nota: 85,13%</div>
+                <p>SQL, MySQL, PostgreSQL e administração de bancos.</p>
             </div>
 
             <div class="card">
                 <h3>JavaScript · IFRS</h3>
-                <div class="subtitulo">out de 2025 · Nota: 96,67%</div>
-                <ul>
-                    <li>Sintaxe, estruturas de controle, funções, DOM, eventos e validação de dados.</li>
-                </ul>
+                <div class="subtitulo">2025 · Nota: 96,67%</div>
+                <p>DOM, funções, eventos e validação.</p>
             </div>
 
             <div class="card">
-                <h3>Gestão da Cadeia de Suprimentos e Logística · IFRS</h3>
-                <div class="subtitulo">jun de 2025 – nov de 2025 · Nota: 78,62%</div>
-                <ul>
-                    <li>Integração entre transporte, estoque e distribuição com foco em eficiência e redução de custos.</li>
-                </ul>
+                <h3>Gestão da Cadeia de Suprimentos · IFRS</h3>
+                <div class="subtitulo">2025 · Nota: 78,62%</div>
             </div>
 
             <div class="card">
                 <h3>Logística Reversa · IFRS</h3>
-                <div class="subtitulo">out de 2025 · Nota: 88,67%</div>
-                <ul>
-                    <li>Processos de logística reversa e sustentabilidade em cadeias de suprimentos.</li>
-                </ul>
+                <div class="subtitulo">2025 · Nota: 88,67%</div>
             </div>
 
             <div class="card">
-                <h3>Lean Six Sigma White Belt · Escola EDTI</h3>
-                <div class="subtitulo">out de 2025</div>
-                <ul>
-                    <li>Introdução a DMAIC, mapeamento de processos, identificação de gargalos e melhoria contínua.</li>
-                </ul>
+                <h3>Lean Six Sigma White Belt · EDTI</h3>
+                <div class="subtitulo">2025</div>
             </div>
 
             <div class="card">
-                <h3>Curso Técnico em Logística · Senac Minas</h3>
-                <div class="subtitulo">jan de 2016 – jul de 2017</div>
-                <ul>
-                    <li>Planejamento operacional, gestão de transportes, controle de estoque e análise de custos.</li>
-                </ul>
+                <h3>Técnico em Logística · Senac Minas</h3>
+                <div class="subtitulo">2016–2017</div>
             </div>
-
         </div>
     </section>
 
-    <!-- ======= HABILIDADES ======= -->
+    <!-- HABILIDADES -->
     <section id="habilidades">
         <h2>Habilidades</h2>
 
@@ -392,32 +396,29 @@
             <h3>Competências Técnicas</h3>
             <div>
                 <span class="tag">Power BI</span>
+                <span class="tag">SQL</span>
+                <span class="tag">BigQuery</span>
                 <span class="tag">Excel Avançado</span>
-                <span class="tag">SQL / BigQuery</span>
-                <span class="tag">Modelagem de Dados</span>
-                <span class="tag">Dashboards & KPIs</span>
-                <span class="tag">Power Query / ETL</span>
-                <span class="tag">Last Mile Logistics</span>
-                <span class="tag">Roteirização (Rotas / SPR / DS)</span>
+                <span class="tag">DAX</span>
+                <span class="tag">ETL</span>
+                <span class="tag">Looker Studio</span>
+                <span class="tag">Logística Last Mile</span>
             </div>
 
             <div class="linha"></div>
 
-            <h3>Competências Comportamentais</h3>
+            <h3>Soft Skills</h3>
             <div>
-                <span class="tag">Liderança de Equipes</span>
+                <span class="tag">Liderança</span>
+                <span class="tag">Comunicação</span>
+                <span class="tag">Gestão de Processos</span>
+                <span class="tag">Análise Crítica</span>
                 <span class="tag">Trabalho em Equipe</span>
-                <span class="tag">Capacidade Analítica</span>
-                <span class="tag">Melhoria de Processos</span>
-                <span class="tag">Planejamento Estratégico</span>
-                <span class="tag">Gestão da Cadeia de Suprimentos</span>
-                <span class="tag">Controle Operacional</span>
-                <span class="tag">Relacionamento com Clientes</span>
             </div>
         </div>
     </section>
 
-    <!-- ======= CONTATO ======= -->
+    <!-- CONTATO -->
     <section id="contato">
         <h2>Contato</h2>
         <div class="card">
@@ -431,18 +432,36 @@
         </div>
     </section>
 
-    <!-- ======= SCRIPTS ======= -->
-    <button id="darkBtn" onclick="toggleDark()">🌙</button>
-
+    <!-- JS INTERAÇÕES -->
     <script>
-        function toggleDark() {
-            document.body.classList.toggle("dark");
-        }
-
+        /* MENU */
         function toggleMenu() {
             const menu = document.getElementById("menuNav");
             menu.style.display = menu.style.display === "flex" ? "none" : "flex";
         }
+
+        /* ACCORDION */
+        const accordions = document.querySelectorAll(".accordion");
+        accordions.forEach(acc => {
+            acc.addEventListener("click", () => {
+                acc.classList.toggle("open");
+                const icon = acc.querySelector("span");
+                icon.textContent = acc.classList.contains("open") ? "▲" : "▼";
+            });
+        });
+
+        /* Scroll reveal */
+        const cards = document.querySelectorAll(".card");
+        const reveal = () => {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    card.classList.add("visible");
+                }
+            });
+        };
+        window.addEventListener("scroll", reveal);
+        reveal();
     </script>
 
 </body>
